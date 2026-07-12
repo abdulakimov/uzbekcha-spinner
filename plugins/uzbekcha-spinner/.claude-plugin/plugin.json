@@ -1,0 +1,14 @@
+{
+  "name": "uzbekcha-spinner",
+  "displayName": "O'zbekcha Spinner",
+  "version": "1.0.0",
+  "description": "Claude Code spinner fe'llarini o'zbekchaga almashtiradi: Osh damlayapti…, Bosh qotiryapti…, Sho'ng'iyapti…",
+  "author": {
+    "name": "abdulakimov",
+    "url": "https://github.com/abdulakimov"
+  },
+  "homepage": "https://github.com/abdulakimov/uzbekcha-spinner",
+  "repository": "https://github.com/abdulakimov/uzbekcha-spinner",
+  "license": "MIT",
+  "keywords": ["uzbek", "o'zbekcha", "spinner", "fun", "localization"]
+}
