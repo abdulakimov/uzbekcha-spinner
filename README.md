@@ -30,6 +30,11 @@ So'ng Claude Code'ni qayta ishga tushiring — hooklar faqat seans boshida yukla
 | `/uzbekcha off` | Inglizcha fe'llarni qaytaradi |
 | `/uzbekcha on` | Qaytadan yoqadi |
 | `/uzbekcha ro'yxat` | Barcha fe'llarni chiqaradi |
+| `/uzbekcha hazil` | Faqat hazil toifasi |
+| `/uzbekcha hazil oshxona` | Ikki toifa birga |
+| `/uzbekcha hammasi` | To'rtala toifa (default) |
+
+Toifalar: `neytral` · `oshxona` · `hazil` · `harakat`. Tanlovingiz saqlanadi — keyingi seanslarda ham o'sha toifalar ishlaydi.
 
 ## Qanday ishlaydi
 
