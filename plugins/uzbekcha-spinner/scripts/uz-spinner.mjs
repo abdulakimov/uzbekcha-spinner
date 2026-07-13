@@ -143,18 +143,27 @@ function faktOchir(settings, state) {
 
 // ——— buyruqlar —————————————————————————————————————————————
 
-// Hook shuni chaqiradi: fe'llarni, agar fakt rejimi yoqilgan bo'lsa — faktlarni ham qo'llaydi.
-function on() {
+// Fe'llarni, va — agar foydalanuvchi ataylab o'chirmagan bo'lsa — faktlarni qo'llaydi.
+// Faktlar default yoqiq: state bo'sh bo'lsa ham (yangi o'rnatish) ular yoziladi.
+function qolla({ hookdan = false } = {}) {
   const state = readState();
+  // Hook foydalanuvchi qaroriga bo'ysunadi: /uzbekcha off degan bo'lsa, tegmaymiz.
+  // Busiz `off` keyingi seansda o'z-o'zidan bekor bo'lib ketardi.
+  if (hookdan && state.ochirilgan) return;
+
   const settings = readSettings();
+  let ozgardi = felQolla(settings, state);
+  if (!state.faktOchirilgan) ozgardi = faktQolla(settings, state) || ozgardi;
 
-  const o1 = felQolla(settings, state);
-  const o2 = state.faktQollangan ? faktQolla(settings, state) : false;
-
-  if (o1 || o2) {
+  if (ozgardi) {
     writeState(state);
     writeSettings(settings);
   }
+}
+
+function on() {
+  writeState({ ...readState(), ochirilgan: false });
+  qolla();
 }
 
 function off() {
@@ -163,7 +172,7 @@ function off() {
 
   if (state.avvalgi) settings.spinnerVerbs = state.avvalgi;
   else delete settings.spinnerVerbs;
-  Object.assign(state, { qollangan: false, avvalgi: null });
+  Object.assign(state, { qollangan: false, avvalgi: null, ochirilgan: true });
 
   faktOchir(settings, state);
 
@@ -181,32 +190,34 @@ function toifaOrnat(nomlar) {
     console.log(`Mavjud toifalar: ${BARCHA_TOIFALAR.join(", ")}, hammasi`);
     return;
   }
-  const state = readState();
-  writeState({ ...state, toifalar: nomlar });
-  on();
+  writeState({ ...readState(), toifalar: nomlar, ochirilgan: false });
+  qolla();
   holat();
 }
 
 function fakt(buyruq = "on") {
+  if (buyruq !== "on" && buyruq !== "off") {
+    console.log(`Noma'lum buyruq: fakt ${buyruq}. Kutilgani: fakt on | fakt off`);
+    return;
+  }
+
   const state = readState();
   const settings = readSettings();
 
   if (buyruq === "off") {
     faktOchir(settings, state);
+    state.faktOchirilgan = true;
     writeState(state);
     writeSettings(settings);
-    console.log("Fakt rejimi o'chirildi.");
-    return;
-  }
-  if (buyruq !== "on") {
-    console.log(`Noma'lum buyruq: fakt ${buyruq}. Kutilgani: fakt on | fakt off`);
+    console.log("Fakt rejimi o'chirildi. Fe'llar o'z holida qoladi.");
     return;
   }
 
-  if (faktQolla(settings, state)) {
-    writeState(state);
-    writeSettings(settings);
-  }
+  Object.assign(state, { faktOchirilgan: false, ochirilgan: false });
+  faktQolla(settings, state);
+  writeState(state);
+  writeSettings(settings);
+
   const tips = loadFacts();
   console.log(`Fakt rejimi: YOQILGAN — ${tips.length} ta fakt.`);
   console.log(`Namuna: Tip: ${tips[Math.floor(Math.random() * tips.length)]}`);
@@ -222,6 +233,7 @@ function holat() {
   const felYoq = settings.spinnerVerbs?.mode === "replace" && birXil(settings.spinnerVerbs.verbs, verbs);
   const faktYoq = settings.spinnerTipsOverride?.excludeDefault === true && birXil(settings.spinnerTipsOverride.tips, facts);
 
+  if (state.ochirilgan) console.log("Plugin o'chirilgan (/uzbekcha on — qayta yoqadi)");
   console.log(`Fe'llar    : ${felYoq ? "YOQILGAN" : "o'chirilgan"} — ${verbs.length} ta`);
   console.log(`Toifalar   : ${toifalar.join(", ")}${toifalar.length === BARCHA_TOIFALAR.length ? " (hammasi)" : ""}`);
   console.log(`Fakt rejimi: ${faktYoq ? "YOQILGAN" : "o'chirilgan"} — ${facts.length} ta fakt`);
@@ -246,7 +258,8 @@ try {
   const argv = process.argv.slice(2);
   const buyruq = argv[0] ?? "holat";
 
-  if (buyruq === "on") on();
+  if (buyruq === "hook") qolla({ hookdan: true });
+  else if (buyruq === "on") on();
   else if (buyruq === "off") off();
   else if (buyruq === "fakt") fakt(argv[1]);
   else if (buyruq === "faktlar") royxat("facts.json");

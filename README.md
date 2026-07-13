@@ -28,11 +28,13 @@ So'ng Claude Code'ni qayta ishga tushiring — hooklar faqat seans boshida yukla
 
 ## Boshqarish
 
+O'rnatgandan keyin fe'llar ham, faktlar ham **darhol ishlaydi** — hech narsa yoqish shart emas.
+
 | Buyruq | Nima qiladi |
 |---|---|
 | `/uzbekcha` | Holatini ko'rsatadi |
-| `/uzbekcha fakt` | Fakt rejimini yoqadi |
 | `/uzbekcha fakt off` | Faktlarni o'chiradi, fe'llar qoladi |
+| `/uzbekcha fakt` | Faktlarni qaytaradi |
 | `/uzbekcha hazil` | Faqat hazil fe'llari |
 | `/uzbekcha hazil oshxona` | Ikki toifa birga |
 | `/uzbekcha hammasi` | To'rtala toifa (default) |
@@ -42,7 +44,7 @@ So'ng Claude Code'ni qayta ishga tushiring — hooklar faqat seans boshida yukla
 
 Fe'l toifalari: `neytral` (46) · `oshxona` (35) · `hazil` (37) · `harakat` (40).
 
-Fe'l toifasi va fakt rejimi bir-biridan mustaqil, tanlovingiz esa saqlanadi — keyingi seanslarda ham o'sha holat tiklanadi.
+Fe'l toifasi va fakt rejimi bir-biridan mustaqil, tanlovingiz esa saqlanadi — keyingi seanslarda ham o'sha holat tiklanadi. `/uzbekcha off` desangiz, plugin o'chgan holida qoladi: hook uni o'z-o'zidan qayta yoqmaydi.
 
 ## Qanday ishlaydi
 

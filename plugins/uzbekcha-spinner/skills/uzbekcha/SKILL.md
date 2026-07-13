@@ -22,19 +22,21 @@ node "${CLAUDE_PLUGIN_ROOT}/scripts/uz-spinner.mjs" <argumentlar>
 
 | Argument | Nima qiladi |
 |---|---|
-| `on` | Fe'llarni qo'llaydi (fakt rejimi yoqilgan bo'lsa — faktlarni ham). Jim ishlaydi — keyin `holat` ni chaqirib natijani ko'rsat |
-| `off` | Hammasini o'chiradi: inglizcha fe'llar ham, maslahatlar ham qaytadi |
-| `fakt` yoki `fakt on` | Fakt rejimini yoqadi |
+| `on` | Hammasini qayta yoqadi. Jim ishlaydi — keyin `holat` ni chaqirib natijani ko'rsat |
+| `off` | Hammasini o'chiradi va o'chgan holida qoldiradi: inglizcha fe'llar ham, maslahatlar ham qaytadi |
 | `fakt off` | Faqat faktlarni o'chiradi, fe'llar qoladi |
+| `fakt` yoki `fakt on` | Faktlarni qaytaradi |
 | `faktlar` | Barcha faktlarni toifalar bo'yicha chiqaradi |
 | `holat` | Fe'llar va fakt rejimi yoqilganmi, qaysi toifalar faol |
 | `ro'yxat` | Barcha fe'llarni chiqaradi, faol toifalarni belgilaydi |
 | `hazil`, `oshxona`, `neytral`, `harakat` | Faqat shu fe'l toifa(lar)i. Bir nechtasini birga: `hazil oshxona` |
 | `hammasi` | Barcha fe'l toifalarini qaytaradi |
 
-Fe'l toifasi va fakt rejimi bir-biridan mustaqil — `oshxona` fe'llari bilan faktlar birga ishlayveradi.
+Fe'llar ham, faktlar ham o'rnatilgandan keyin **default yoqiq**. Fe'l toifasi va fakt rejimi bir-biridan mustaqil — `oshxona` fe'llari bilan faktlar birga ishlayveradi.
 
-Tanlov state faylida saqlanadi, shuning uchun keyingi seansda `SessionStart` hook ham aynan shu holatni tiklaydi.
+Tanlov state faylida saqlanadi, shuning uchun keyingi seansda `SessionStart` hook ham aynan shu holatni tiklaydi. `off` qilingan bo'lsa, hook uni qayta yoqmaydi.
+
+Hook ichki `hook` buyrug'ini ishlatadi — uni qo'lda chaqirmang.
 
 Skript chiqargan matnni foydalanuvchiga qisqacha yetkaz. O'zgarishlar darhol kuchga kiradi — qayta ishga tushirish shart emas.
 
