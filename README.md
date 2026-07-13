@@ -26,6 +26,23 @@ So'ng Claude Code'ni qayta ishga tushiring — hooklar faqat seans boshida yukla
 
 **Talab:** Node.js 18+ (`node` buyrug'i PATH'da bo'lishi kerak).
 
+### Yangilanishlarni avtomatik olish
+
+Claude Code faqat Anthropic'ning o'z marketplace'larini avtomatik yangilaydi. Boshqalarini — shu jumladan bu pluginni — o'zingiz yoqishingiz kerak:
+
+```
+/plugin  →  uzbekcha  →  Enable auto-update
+```
+
+Shundan keyin har ishga tushganda yangi versiya o'zi o'rnatiladi. Yoqmasangiz, yangi fe'l va faktlarni qo'lda olasiz:
+
+```
+/plugin marketplace update uzbekcha
+/plugin update uzbekcha-spinner@uzbekcha
+```
+
+> Plugin bu sozlamani **o'zi yoqib qo'ymaydi**, garchi texnik jihatdan qila olsa ham. Avtomatik yangilanish — bu "har ishga tushganda GitHub'dan yangi kod tortib olib ishga tushir" degani. Bunday ruxsatni plugin o'ziga o'zi bermasligi kerak; qarorni siz qabul qilasiz.
+
 ## Boshqarish
 
 O'rnatgandan keyin fe'llar ham, faktlar ham **darhol ishlaydi** — hech narsa yoqish shart emas.
