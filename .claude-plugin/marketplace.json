@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "uzbekcha-spinner",
-      "description": "Claude Code spinner fe'llarini o'zbekchaga almashtiradi: Osh damlayapti…, Bosh qotiryapti…, Sho'ng'iyapti…",
+      "description": "Claude Code spinner'ini o'zbekchalashtiradi: 158 fe'l (Osh damlayapti…, Bosh qotiryapti…) va 300 o'zbekcha fakt",
       "source": "./plugins/uzbekcha-spinner",
       "category": "productivity",
       "homepage": "https://github.com/abdulakimov/uzbekcha-spinner"
